@@ -19,7 +19,7 @@ class Accountant:
             for row in self.logs:
                 for line in row:
                     f.write(f"{line}\n")
-        print(f"\n--- >>> {action} -->> saldo: {self.balance}. \nLog operacji w pliku {filepath}")
+        print(f"\n--- >>> {action} -->> saldo: {self.balance}. \nLog operacji w pliku {filepath}\n")
         return
 
     def stock_status(self, *args):
@@ -118,34 +118,21 @@ class Accountant:
         self.balance += prd_prise * prd_qty
         self.logs.append(["sprzedaz", prd_id, prd_prise, prd_qty])
 
-# availabe_actions = ["saldo", "sprzedaz", "zakup", "stop", "konto", "magazyn", "przeglad"]
+
+
+def review(first, last):
+    first = int(sys.argv[2])
+    last = int(sys.argv[3])
+    if first < 1 :
+      first = 1
+    if last > len(accountancy.logs) :
+      last = len(accountancy.logs)
+    while first <= last:
+      print(f"Akcja nr {first} - {accountancy.logs[first-1]}")
+      first += 1
+    print("--- >>> przeglad")
+
+
 accountancy = Accountant()
-# accountancy.open_data("file.txt")
-# print(accountancy.data)
-# accountancy.transform_data()
-# print(accountancy.transformed_data)
 
-# while True:
-#     action = input("Wybierz akcje: \n")
-#     if action == "saldo":
-#         accountancy.get_balance("saldo")
-#     elif action == "zakup":
-#         accountancy.get_buy("zakup")
-#     elif action == "sprzedaz":
-#         accountancy.get_sale("sprzedaz")
-#     elif action == "stop":
-#         accountancy.logs.append([action])
-#         break
-#     else:
-#         print(f"\nDostępne akcje: {availabe_actions[:3]}")
-#         print("\nNiedozwolna akcja")
-#         exit("exit")
 
-# print(accountancy.balance)
-# print(accountancy.logs)
-# print(accountancy.warehouse)
-
-    # for row in accountancy.logs:
-    #     for line in row:
-    #         print(line)
-    # print("--- >>> saldo")
