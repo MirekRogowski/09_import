@@ -7,7 +7,6 @@ class Accountant:
         self.warehouse = {}
         self.logs = []
         self.data = []
-        self.transformed_data = []
 
     def open_data(self, filepath):
         with open(filepath) as f:
@@ -31,7 +30,7 @@ class Accountant:
                     print(f"{prd_id} : {accountancy.warehouse[prd_id]} sztuk")
                 else:
                     print(f"{prd_id} : brak poyzcji w magazynie")
-        return
+        return 
 
     def transform_data(self):
         transformed_data = []
@@ -56,6 +55,12 @@ class Accountant:
         return True
 
     def get_balance(self, action, new_balance, comments):
+        if self.balance + int(new_balance) < 0:
+            print(f"\nBrak środków na koncie.\n"
+                  f"Obecny stan konta -->> {self.balance}\n"
+                  f"Potrzebujesz jeszcze-->> {self.balance + int(new_balance)}\n"
+                  f"Do zapłaty -->> {new_balance}")
+            return
         self.balance += int(new_balance)
         self.logs.append([action, new_balance, comments])
         return
@@ -86,14 +91,8 @@ class Accountant:
             print("\nMagazyn jest pusty proszeę zakupić towar.\n")
             return
         if not prd_id in self.warehouse:
-            print("\nBrak towaru  w magazanie, proszę towar  wybrać z poniższej listy:  ")
-            temp_data = []
-            index = 0
-            while index < len(self.warehouse):
-            # for key in self.warehouse:
-                temp_data += temp_data.append(f"{index} - {self.warehouse[index]} sztuk")
-                # print(f"{key} - {self.warehouse[key]} sztuk")
-                continue
+            print("\nBrak towaru w magazynie. ")
+            self.stock_status()
             return
         # remove item from warehouse
         if (self.warehouse[prd_id] - qty) < 0:
