@@ -20,7 +20,7 @@ class Accountant:
             for row in self.logs:
                 for line in row:
                     f.write(f"{line}\n")
-        print(f"\n--- >>> {action} -->> saldo: {self.balance}. \nLog operacji w pliku {filepath}\n")
+        print(f"--- >>> {action} -->> saldo: {self.balance}. \nLog operacji w pliku {filepath}\n")
         return
 
     def stock_status(self, *args):
