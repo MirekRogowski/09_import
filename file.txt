@@ -1,21 +1,28 @@
 saldo
-1500
+2000
 income
 zakup
 rower
 200
 10
-zakup
-samolot
-1000
-10
 sprzedaz
 rower
 400
-3
+10
+sprzedaz
+traktor
+200
+2
+zakup
+samolot
+1000
+20
 sprzedaz
 samolot
-1500
-5
+2000
+10
+
+
+
 
 
