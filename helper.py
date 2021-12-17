@@ -20,16 +20,18 @@ class Accountant:
             for row in self.logs:
                 for line in row:
                     f.write(f"{line}\n")
-        print(f"--- >>> {action} -->> saldo: {self.balance}. \nLog operacji w pliku {filepath}\n")
+        print(f"--- >>> {action} -->> saldo: {self.balance}. \n\nLog operacji w pliku {filepath}\n")
         return
 
     def stock_status(self, *args):
         for arg in args:
+            print(f"Stan magazynu: ")
             for prd_id in arg:
                 if prd_id in self.warehouse:
-                    print(f"{prd_id} : {accountancy.warehouse[prd_id]} sztuk")
+                    print(f" - {prd_id} : {accountancy.warehouse[prd_id]} sztuk")
                 else:
-                    print(f"{prd_id} : brak poyzcji w magazynie")
+                    print(f" - {prd_id} : brak poyzcji w magazynie")
+        print("\n")
         return 
 
     def transform_data(self):
@@ -72,7 +74,8 @@ class Accountant:
             print(f"\nSaldo wynosi: {self.balance}. Nie można kupić towaru\n ")
             return
         if prise * qty > self.balance:
-            print(f"\nNie mozna dokonac zakupu. Za małe saldo: {self.balance}\n")
+            print(f"\nNie mozna dokonac zakupu - {prd_id}. Za małe saldo - {self.balance}\n"
+                  f"Koszt zakupu - {prise * qty}. Brakuje - {prise * qty - self.balance}\n")
             return
         self.balance -= prise * qty
         if prd_id in self.warehouse:
@@ -91,7 +94,7 @@ class Accountant:
             print("\nMagazyn jest pusty proszeę zakupić towar.\n")
             return
         if not prd_id in self.warehouse:
-            print("\nBrak towaru w magazynie. ")
+            print(f"\nBrak {prd_id} w magazynie.")
             self.stock_status()
             return
         # remove item from warehouse
@@ -107,10 +110,17 @@ def review(first, last):
       first = 1
     if last > len(accountancy.logs) :
       last = len(accountancy.logs)
+    print("\nHitoria akcji:")
     while first <= last:
       print(f"Akcja nr {first} - {accountancy.logs[first-1]}")
       first += 1
-    print("--- >>> przeglad")
+    print("\n")
+
+def action(file, action, *data):
+    accountancy.open_data(file)
+    accountancy.get_balance(action, *data)
+    accountancy.writa_data(action, "01zapis.txt")
+
 
 
 accountancy = Accountant()
